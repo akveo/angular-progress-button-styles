@@ -1,6 +1,6 @@
 # angular-progress-button-styles
 AngularJS version of <a href="https://github.com/codrops/ProgressButtonStyles" target="_blank">Codrops progress buttons</a>.
-I also added conterted css to sass and less styles and moved some particular button styles to different files.
+I've also made less and sass versions of it besides css.
 
 Check out <a href="http://lugovsky.github.io/angular-progress-button-styles/example.html" target="_blank">Live demo</a>!
 
@@ -10,7 +10,7 @@ Install bower package:
 ```bash
 bower install --save angular-progress-button-styles
 ```
-Include scripts and styles:
+Include scripts and styles (I use FontAwesome for success and error icons, but you can override it):
 ```html
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="bower_components/angular-progress-button-styles/dist/angular-progress-button-styles.min.css">
@@ -29,8 +29,8 @@ That's it! Enjoy the plugin!
 
 Configuration
 -------------
-The directive itself takes as a parameter callback function, that returns promise after execution. On value return progress completes instantly.
-You can configure plugin using two different ways
+The directive itself takes as a parameter callback function, that returns promise after execution. If function returns value progress completes instantly.
+You can configure plugin using two different ways:
 * Using html attributes
 * Using javascript
 
@@ -45,8 +45,8 @@ Here is a list of supported HTML attributes and their meaning:
 | pb-profile | _String value_ | The profile from which to fetch configuration during the button initialization. For more information look JS configuration section |
  
 ##### Javascript configuration
-For those ones, who don't like to have a lot of configuration in the HTML as well to prevent the copy-paste there also is possiblity to define configuration in Javascript using profiles.
-To do this, you need to inject `progressButtonConfigProvider` during the app config state:
+For those ones, who don't like to have a lot of configuration in HTML as well to prevent the copy-paste there also is possibility to define configuration in Javascript using profiles.
+To do this, you need to inject `progressButtonConfigProvider` during the app configuration:
 ```javascript
 mdl.config(function(progressButtonConfigProvider) {
   progressButtonConfigProvider.profile('testProfile', {
