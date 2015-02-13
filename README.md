@@ -12,6 +12,7 @@ bower install --save angular-progress-button-styles
 ```
 Include scripts and styles:
 ```html
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="bower_components/angular-progress-button-styles/dist/angular-progress-button-styles.min.css">
 <script type="text/javascript" src="bower_components/angular-progress-button-styles/dist/angular-progress-button-styles.min.js"></script>
 ```
