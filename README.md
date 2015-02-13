@@ -40,9 +40,9 @@ Here is a list of supported HTML attributes and their meaning:
 | Attribute | Available values | Meaning |
 |---|---|---------|
 | pb-style | <ul><li>fill</li><li>shrink</li><li>rotate-angle-bottom</li><li>rotate-angle-top</li><li>rotate-angle-left</li><li>rotate-angle-right</li><li>rotate-side-down</li><li>rotate-side-up</li><li>rotate-side-left</li><li>rotate-side-right</li><li>rotate-back</li><li>slide-down</li><li>top-line</li><li>move-up</li><li>lateral-lines</li><li>flip-open</li></ul> | Defines button appearance. Default value is <b>fill</b>. |
-| pb-direction | <ul><li>horizontal</li><li>vertical</li></ul> | To be used with pb-style=(fill or shrink). Defines the direction of the progress bar. Default value is <b>horizontal</b>. |
-| pb-random-progress | <ul><li>true</li><li>false</li></ul> | Runs random fill function from the moment button is clicked till promise is resolved. Default value is <b>true</b>. |
-| pb-profile | _String value_ | The profile from which to fetch configuration during the button initialization. For more information look JS configuration section |
+| pb-direction | <ul><li>horizontal</li><li>vertical</li></ul> | To be used with pb-style=(fill or shrink). Defines the direction of the progress bar.<br/> Default value is <b>horizontal</b>. |
+| pb-random-progress | <ul><li>true</li><li>false</li></ul> | Runs random fill function from the moment button is clicked till promise is resolved.<br/> Default value is <b>true</b>. |
+| pb-profile | _String value_ | The profile from which to fetch configuration during the button initialization.<br/> For more information look JS configuration section |
  
 ##### Javascript configuration
 For those ones, who don't like to have a lot of configuration in HTML as well to prevent the copy-paste there also is possibility to define configuration in Javascript using profiles.
