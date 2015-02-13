@@ -1,0 +1,27 @@
+.progress-button-style-move-up {
+    padding: 0;
+    overflow: visible;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+    .content {
+        z-index: 10;
+        padding: 0 60px;
+        background: #1d9650;
+        -webkit-transition: -webkit-transform 0.2s;
+        transition: transform 0.2s;
+    }
+
+    .progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    &.state-loading .content {
+        -webkit-transform: translateY(-10px);
+        transform: translateY(-10px);
+    }
+}

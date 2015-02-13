@@ -1,0 +1,32 @@
+.progress-button {
+    &-style-rotate-back {
+        .progress-wrap {
+            -webkit-transition-timing-function: ease-out;
+            transition-timing-function: ease-out;
+        }
+
+        .content {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .progress {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-transform: rotateX(-180deg);
+            transform: rotateX(-180deg);
+            -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        &.state-loading .progress-wrap {
+            -webkit-transform: rotateX(180deg) scaleX(0.6) scaleY(0.3);
+            transform: rotateX(180deg) scaleX(0.6) scaleY(0.3);
+        }
+    }
+}

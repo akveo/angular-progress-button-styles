@@ -1,0 +1,27 @@
+.progress-button {
+    &-style-fill.progress-button-dir-vertical {
+        overflow: hidden;
+        .content {
+            z-index: 10;
+            -webkit-transition: -webkit-transform 0.3s;
+            transition: transform 0.3s;
+
+            &:before, &:after {
+                top: 100%;
+                right: auto;
+                left: 50%;
+                -webkit-transition: opacity 0.3s;
+                transition: opacity 0.3s;
+                -webkit-transform: translateX(-50%);
+                transform: translateX(-50%);
+            }
+        }
+
+        &.state-success, &.state-error {
+            .content {
+                -webkit-transform: translateY(-100%);
+                transform: translateY(-100%);
+            }
+        }
+    }
+}

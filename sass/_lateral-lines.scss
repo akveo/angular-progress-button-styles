@@ -1,0 +1,16 @@
+.progress-button-style-lateral-lines {
+    .progress-inner {
+        width: 100%;
+        border-right: 3px solid #0e7138;
+        border-left: 3px solid #0e7138;
+        background: transparent;
+    }
+
+    .content {
+        &:before, &:after {
+            right: auto;
+            left: 100%;
+            margin-left: 25px;
+        }
+    }
+}

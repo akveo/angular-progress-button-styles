@@ -1,0 +1,39 @@
+.progress-button {
+    &-style-shrink {
+        overflow: hidden;
+        -webkit-transition: -webkit-transform 0.2s;
+        transition: transform 0.2s;
+    }
+
+    &-style-shrink.progress-button-dir-vertical {
+        .content {
+            -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+            transition: opacity 0.3s, transform 0.3s;
+
+            &:before, &:after {
+                top: 100%;
+                right: auto;
+                left: 50%;
+                -webkit-transition: opacity 0.3s;
+                transition: opacity 0.3s;
+                -webkit-transform: translateX(-50%);
+                transform: translateX(-50%);
+            }
+        }
+
+        &.state-loading {
+            -webkit-transform: scaleX(0.1);
+            transform: scaleX(0.1);
+            .content {
+                opacity: 0;
+            }
+        }
+
+        &.state-error, &.state-success {
+            .content {
+                -webkit-transform: translateY(-100%);
+                transform: translateY(-100%);
+            }
+        }
+    }
+}

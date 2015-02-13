@@ -1,0 +1,114 @@
+/* General styles for all types of buttons */
+.progress-button {
+    position: relative;
+    display: inline-block;
+    padding: 0 60px;
+    outline: none;
+    border: none;
+    background: @progressButtonBackground;
+    color: @progressButtonColor;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1em;
+    line-height: 4;
+    cursor: pointer;
+
+    *, *:after, *::before {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .notransition {
+        -webkit-transition: none !important;
+        transition: none !important;
+    }
+
+    &[disabled] {
+        cursor: default;
+    }
+
+    .content {
+        position: relative;
+        display: block;
+        &:before, &:after {
+            position: absolute;
+            right: 20px;
+            color: @progressButtonIconsColor;
+            font-family: @progressButtonIconFontFamily;
+            opacity: 0;
+            -webkit-transition: opacity 0.3s 0.3s;
+            transition: opacity 0.3s 0.3s;
+        }
+
+        &:before {
+            content: @progressButtonSuccessIcon;
+        }
+
+        &:after {
+            content: @progressButtonErrorIcon;
+        }
+    }
+
+    &.state-success .content:before, &.state-error .content:after {
+        opacity: 1;
+    }
+
+    .progress {
+        background: @progressButtonProgressColor;
+    }
+
+    .progress-inner {
+        position: absolute;
+        left: 0;
+        background: @progressButtonProgressInnerColor;
+    }
+
+    &-dir-horizontal {
+        .progress-inner {
+            top: 0;
+            width: 0;
+            height: 100%;
+            -webkit-transition: width 0.3s, opacity 0.3s;
+            transition: width 0.3s, opacity 0.3s;
+        }
+    }
+
+    &-dir-vertical {
+        .progress-inner {
+            bottom: 0;
+            width: 100%;
+            height: 0;
+            -webkit-transition: height 0.3s, opacity 0.3s;
+            transition: height 0.3s, opacity 0.3s;
+        }
+    }
+
+    /* Necessary 3d styles for buttons with perspective */
+    &-perspective {
+        position: relative;
+        display: inline-block;
+        padding: 0;
+        background: transparent;
+        -webkit-perspective: 900px;
+        perspective: 900px;
+
+        .content, .progress {
+            outline: 1px solid rgba(0,0,0,0); /* Smoothen jagged edges in FF */
+        }
+
+        .progress-wrap {
+            display: block;
+            -webkit-transition: -webkit-transform 0.2s;
+            transition: transform 0.2s;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+        }
+
+        .content {
+            padding: 0 60px;
+            background: @progressButtonBackground;
+        }
+
+    }
+}

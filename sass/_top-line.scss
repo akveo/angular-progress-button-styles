@@ -1,0 +1,13 @@
+.progress-button-style-top-line {
+    .progress-inner {
+        height: 3px;
+    }
+
+    .content {
+        &:before, &:after {
+            right: auto;
+            left: 100%;
+            margin-left: 25px;
+        } 
+    }
+}
