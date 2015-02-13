@@ -1,5 +1,5 @@
 # angular-progress-button-styles
-AngularJS version of progress <a href="https://github.com/codrops/ProgressButtonStyles" target="_blank">Codrops progress buttons</a>.
+AngularJS version of <a href="https://github.com/codrops/ProgressButtonStyles" target="_blank">Codrops progress buttons</a>.
 I also added conterted css to sass and less styles and moved some particular button styles to different files.
 
 Check out <a href="http://lugovsky.github.io/angular-progress-button-styles/example.html" target="_blank">Live demo</a>!
