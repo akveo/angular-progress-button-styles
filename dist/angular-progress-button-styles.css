@@ -4,17 +4,20 @@
 .progress-button {
   position: relative;
   display: inline-block;
-  padding: 0 60px;
-  outline: none;
-  border: none;
-  background: #1d9650;
-  color: #FFF;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 1em;
-  line-height: 4;
-  cursor: pointer;
   /* Necessary 3d styles for buttons with perspective */ }
+  .progress-button-defaults {
+    outline: none;
+    padding: 0 60px;
+    border: none;
+    background-color: #1d9650;
+    color: #FFF;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1em;
+    line-height: 4;
+    cursor: pointer; }
+    .progress-button-defaults .content:before, .progress-button-defaults .content:after {
+      color: #0e7138; }
   .progress-button *, .progress-button *:after, .progress-button *::before {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -30,7 +33,6 @@
     .progress-button .content:before, .progress-button .content:after {
       position: absolute;
       right: 20px;
-      color: #0e7138;
       font-family: "FontAwesome";
       opacity: 0;
       -webkit-transition: opacity 0.3s 0.3s;
@@ -41,12 +43,10 @@
       content: "\f05e"; }
   .progress-button.state-success .content:before, .progress-button.state-error .content:after {
     opacity: 1; }
-  .progress-button .progress {
-    background: #148544; }
   .progress-button .progress-inner {
     position: absolute;
     left: 0;
-    background: #0e7138; }
+    background-color: #0e7138; }
   .progress-button-dir-horizontal .progress-inner {
     top: 0;
     width: 0;
@@ -66,7 +66,7 @@
     background: transparent;
     -webkit-perspective: 900px;
     perspective: 900px; }
-    .progress-button-perspective .content, .progress-button-perspective .progress {
+    .progress-button-perspective .content, .progress-button-perspective .progress-button-progress {
       outline: 1px solid rgba(0, 0, 0, 0);
       /* Smoothen jagged edges in FF */ }
     .progress-button-perspective .progress-wrap {
@@ -163,7 +163,7 @@
   -webkit-transform: translateY(-100%);
   transform: translateY(-100%); }
 
-.progress-button-style-rotate-angle-bottom .progress {
+.progress-button-style-rotate-angle-bottom .progress-button-progress {
   position: absolute;
   top: 100%;
   left: 0;
@@ -178,7 +178,7 @@
 .progress-button-style-rotate-angle-bottom.state-loading .progress-wrap {
   -webkit-transform: rotateX(45deg);
   transform: rotateX(45deg); }
-.progress-button-style-rotate-angle-top .progress {
+.progress-button-style-rotate-angle-top .progress-button-progress {
   position: absolute;
   bottom: 100%;
   left: 0;
@@ -193,7 +193,7 @@
 .progress-button-style-rotate-angle-top.state-loading .progress-wrap {
   -webkit-transform: rotateX(-45deg);
   transform: rotateX(-45deg); }
-.progress-button-style-rotate-angle-left .progress {
+.progress-button-style-rotate-angle-left .progress-button-progress {
   position: absolute;
   top: 0;
   right: 100%;
@@ -208,7 +208,7 @@
 .progress-button-style-rotate-angle-left.state-loading .progress-wrap {
   -webkit-transform: rotateY(45deg);
   transform: rotateY(45deg); }
-.progress-button-style-rotate-angle-right .progress {
+.progress-button-style-rotate-angle-right .progress-button-progress {
   position: absolute;
   top: 0;
   left: 100%;
@@ -224,7 +224,7 @@
   -webkit-transform: rotateY(-45deg);
   transform: rotateY(-45deg); }
 
-.progress-button-style-rotate-side-down .progress {
+.progress-button-style-rotate-side-down .progress-button-progress {
   position: absolute;
   top: 100%;
   left: 0;
@@ -239,7 +239,7 @@
 .progress-button-style-rotate-side-down.state-loading .progress-wrap {
   -webkit-transform: rotateX(90deg) translateZ(10px);
   transform: rotateX(90deg) translateZ(10px); }
-.progress-button-style-rotate-side-up .progress {
+.progress-button-style-rotate-side-up .progress-button-progress {
   position: absolute;
   bottom: 100%;
   left: 0;
@@ -257,7 +257,7 @@
 .progress-button-style-rotate-side-left .progress-wrap {
   -webkit-transform-origin: 0 50%;
   transform-origin: 0 50%; }
-.progress-button-style-rotate-side-left .progress {
+.progress-button-style-rotate-side-left .progress-button-progress {
   position: absolute;
   top: 0;
   left: 0;
@@ -273,7 +273,7 @@
 .progress-button-style-rotate-side-right .progress-wrap {
   -webkit-transform-origin: 100% 50%;
   transform-origin: 100% 50%; }
-.progress-button-style-rotate-side-right .progress {
+.progress-button-style-rotate-side-right .progress-button-progress {
   position: absolute;
   top: 0;
   left: 100%;
@@ -293,7 +293,7 @@
 .progress-button-style-rotate-back .content {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden; }
-.progress-button-style-rotate-back .progress {
+.progress-button-style-rotate-back .progress-button-progress {
   position: absolute;
   top: 100%;
   left: 0;
@@ -317,7 +317,7 @@
   transition: transform 0.2s;
   -webkit-transform-origin: 50% 0;
   transform-origin: 50% 0; }
-.progress-button-style-flip-open .progress {
+.progress-button-style-flip-open .progress-button-progress {
   position: absolute;
   top: 0;
   left: 0;
@@ -336,7 +336,7 @@
     z-index: 10;
     padding: 0 60px;
     background: #1d9650; }
-  .progress-button-style-slide-down .progress {
+  .progress-button-style-slide-down .progress-button-progress {
     position: absolute;
     top: 0;
     left: 0;
@@ -344,7 +344,7 @@
     height: 100%;
     -webkit-transition: -webkit-transform 0.2s;
     transition: transform 0.2s; }
-  .progress-button-style-slide-down.state-loading .progress {
+  .progress-button-style-slide-down.state-loading .progress-button-progress {
     -webkit-transform: translateY(10px);
     transform: translateY(10px); }
 
@@ -359,7 +359,7 @@
     background: #1d9650;
     -webkit-transition: -webkit-transform 0.2s;
     transition: transform 0.2s; }
-  .progress-button-style-move-up .progress {
+  .progress-button-style-move-up .progress-button-progress {
     position: absolute;
     top: 0;
     left: 0;

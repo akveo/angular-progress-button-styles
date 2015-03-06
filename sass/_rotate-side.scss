@@ -1,6 +1,6 @@
 .progress-button-style-rotate-side {
     &-down {
-        .progress {
+        .progress-button-progress {
             position: absolute;
             top: 100%;
             left: 0;
@@ -20,7 +20,7 @@
     }
 
     &-up {
-        .progress {
+        .progress-button-progress {
             position: absolute;
             bottom: 100%;
             left: 0;
@@ -46,7 +46,7 @@
             transform-origin: 0 50%;
         }
 
-        .progress {
+        .progress-button-progress {
             position: absolute;
             top: 0;
             left: 0;
@@ -70,7 +70,7 @@
             transform-origin: 100% 50%;
         }
 
-        .progress {
+        .progress-button-progress {
             position: absolute;
             top: 0;
             left: 100%;

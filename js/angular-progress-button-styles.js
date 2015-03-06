@@ -25,6 +25,12 @@
         }
     }
 
+    function modifyRgbColor(initialBackground, factor) {
+        return initialBackground.replace(/\d+/g, function(color, i) {
+            return '' + Math.round(parseInt(color) * factor);
+        });
+    }
+
     var mdl = angular.module('angular-progress-button-styles', []);
 
     mdl.provider('progressButtonConfig', ProgressButtonConfig);
@@ -76,14 +82,33 @@
                 'pbProfile': '@'
             },
             template: '<span class="content" ng-transclude></span>' + 
-                      '<span class="progress">' +
-                          '<span class="progress-inner" ng-style="progressStyles" ng-class="{ notransition: !allowProgressTransition }"></span>' +
+                      '<span class="progress-button-progress" ng-style="progressStyles">' +
+                          '<span class="progress-inner" ng-style="progressInnerStyles" ng-class="{ notransition: !allowProgressTransition }"></span>' +
                       '</span>',
             controller: function() {},
             link: function($scope, $element, $attrs) {
                 _configure();
                 var transitionEndEventName = whichTransitionEnd($element[0]);
                 var progressProperty = $scope.pbDirection == 'vertical' ? 'height' : 'width';
+                var isBootstrapButton = $element.hasClass('btn');
+
+                $scope.progressInnerStyles = {};
+                $scope.progressStyles = {};
+                $scope.allowProgressTransition = false;
+                
+                // TODO: fetch from attributes probably
+
+                $element.addClass('progress-button');
+                if (!isBootstrapButton) { // Bootstrap compatibility.
+                    $element.addClass('progress-button-defaults');
+                } 
+
+                var computedStyle = getComputedStyle($element[0]);
+                var initialBackground = computedStyle.getPropertyValue('background-color');
+                $scope.progressStyles['background-color'] = modifyRgbColor(initialBackground, 0.925);
+                if (isBootstrapButton) {
+                    $scope.progressInnerStyles['background-color'] = modifyRgbColor(initialBackground, 0.85);
+                }
 
                 if ($scope.pbPerspective) {
                     var wrap = angular.element('<span class="progress-wrap"></span>');
@@ -91,11 +116,6 @@
                     $element.append(wrap);
                     $element.addClass('progress-button-perspective');
                 }
-                $scope.progressStyles = {};
-                $scope.allowProgressTransition = false;
-                // TODO: fetch from attributes probably
-
-                $element.addClass('progress-button');
                 $element.addClass('progress-button-dir-' + $scope.pbDirection);
                 $element.addClass('progress-button-style-' + $scope.pbStyle);
 
@@ -141,7 +161,7 @@
                 }
 
                 function setProgress(val) {
-                    $scope.progressStyles[progressProperty] = 100 * val + '%';
+                    $scope.progressInnerStyles[progressProperty] = 100 * val + '%';
                 }
 
                 function enable() {
@@ -164,12 +184,12 @@
                         $scope.$apply(function() {
                             $scope.allowProgressTransition = false;
                             setProgress(0);
-                            $scope.progressStyles.opacity = 1;
+                            $scope.progressInnerStyles.opacity = 1;
                         });
                     }
 
                     if (transitionEndEventName) {
-                        $scope.progressStyles.opacity = 0;
+                        $scope.progressInnerStyles.opacity = 0;
                         $element.on(transitionEndEventName, onOpacityTransitionEnd);
                     }
 

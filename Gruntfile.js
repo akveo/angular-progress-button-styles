@@ -39,6 +39,16 @@ module.exports = function(grunt) {
                 src: 'js/angular-progress-button-styles.js',
                 dest: 'dist/angular-progress-button-styles.js'
             }
+        },
+        watch: {
+            scripts: {
+                files: ['js/*'],
+                tasks: ['scripts']
+            },
+            styles: {
+                files: ['sass/*'],
+                tasks: ['styles']
+            }
         }
     });
 
@@ -48,11 +58,13 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('styles', ['sass:dist', 'cssmin']);
 
     grunt.registerTask('scripts', ['copy:js', 'uglify:main']);
 
     grunt.registerTask('default', ['scripts', 'styles']);
+    grunt.registerTask('dist-watch', ['default', 'watch']);
 
 };

@@ -2,16 +2,23 @@
 .progress-button {
     position: relative;
     display: inline-block;
-    padding: 0 60px;
-    outline: none;
-    border: none;
-    background: $progressButtonBackground;
-    color: $progressButtonColor;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 1em;
-    line-height: 4;
-    cursor: pointer;
+    &-defaults {
+        outline: none;
+        padding: 0 60px;
+        border: none;
+        background-color: $progressButtonBackground;
+        color: $progressButtonColor;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 1em;
+        line-height: 4;
+        cursor: pointer;
+        .content {
+            &:before, &:after {
+                color: $progressButtonIconsColor;
+            }
+        }
+    }
 
     *, *:after, *::before {
         -webkit-box-sizing: border-box;
@@ -34,7 +41,6 @@
         &:before, &:after {
             position: absolute;
             right: 20px;
-            color: $progressButtonIconsColor;
             font-family: $progressButtonIconFontFamily;
             opacity: 0;
             -webkit-transition: opacity 0.3s 0.3s;
@@ -54,14 +60,10 @@
         opacity: 1;
     }
 
-    .progress {
-        background: $progressButtonProgressColor;
-    }
-
     .progress-inner {
         position: absolute;
         left: 0;
-        background: $progressButtonProgressInnerColor;
+        background-color: $progressButtonProgressInnerColor;
     }
 
     &-dir-horizontal {
@@ -93,7 +95,7 @@
         -webkit-perspective: 900px;
         perspective: 900px;
 
-        .content, .progress {
+        .content, .progress-button-progress {
             outline: 1px solid rgba(0,0,0,0); /* Smoothen jagged edges in FF */
         }
 

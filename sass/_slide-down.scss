@@ -10,7 +10,7 @@
         background: #1d9650;
     }
 
-    .progress {
+    .progress-button-progress {
         position: absolute;
         top: 0;
         left: 0;
@@ -20,7 +20,7 @@
         transition: transform 0.2s;
     }
 
-    &.state-loading .progress {
+    &.state-loading .progress-button-progress {
         -webkit-transform: translateY(10px);
         transform: translateY(10px);
     }
