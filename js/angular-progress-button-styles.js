@@ -102,7 +102,8 @@
                 $element.on('click', function() {
                     $scope.$apply(function() {
                         $scope.allowProgressTransition = true;
-                        $element.addClass('state-loading').attr('disabled', 'disabled');
+                        $element.addClass('state-loading');
+                        disable();
                         var interval = null;
                         $q.when($scope.progressButton()).then(
                             function success() {
@@ -144,7 +145,15 @@
                     $scope.progressStyles[progressProperty] = 100 * val + '%';
                 }
 
+                function disable() {
+                    if( $element.attr('ng-disabled') !== undefined )
+                        return;
+                    $element.attr('disabled', 'disabled');
+                }
+
                 function enable() {
+                    if( $element.attr('ng-disabled') !== undefined )
+                        return;
                     $element.removeAttr('disabled');
                 }
 
@@ -159,7 +168,11 @@
                 function doStop(status) {
 
                     function onOpacityTransitionEnd(ev) {
-                        if (ev.propertyName !== 'opacity') return;
+                        if (ev.propertyName !== 'opacity'){
+                            // JQuery event may no have propertyName, but the originalEvent does
+                            if( ! ev.originalEvent || ev.originalEvent.propertyName !== 'opacity' )
+                                return;
+                        }
                         $element.off(transitionEndEventName, onOpacityTransitionEnd);
                         $scope.$apply(function() {
                             $scope.allowProgressTransition = false;
