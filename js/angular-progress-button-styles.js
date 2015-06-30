@@ -159,7 +159,8 @@
                 function doStop(status) {
 
                     function onOpacityTransitionEnd(ev) {
-                        if (ev.propertyName !== 'opacity') return;
+                        // JQuery event may no have propertyName, but the originalEvent does
+                        if (ev.propertyName !== 'opacity' && (! ev.originalEvent || ev.originalEvent.propertyName !== 'opacity') ) return;
                         $element.off(transitionEndEventName, onOpacityTransitionEnd);
                         $scope.$apply(function() {
                             $scope.allowProgressTransition = false;
