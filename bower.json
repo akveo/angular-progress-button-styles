@@ -4,6 +4,10 @@
   "authors": [
     "Vladimir Lugovsky <lugovsky.v@gmail.com>"
   ],
+  "main": [ 
+    "dist/angular-progress-button-styles.min.js", 
+    "dist/angular-progress-button-styles.min.css"
+  ],
   "description": "Different types of progressbuttons implemented on AngularJS",
   "keywords": [
     "angular",
