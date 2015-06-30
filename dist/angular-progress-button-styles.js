@@ -77,7 +77,7 @@
             },
             template: '<span class="content" ng-transclude></span>' + 
                       '<span class="progress">' +
-                          '<span class="progress-inner" ng-style="progressStyles" ng-class="{ notransition: !allowProgressTransition }"></span>' +
+                          '<span class="progress-inner" ng-style="progressStyles" ng-class="{ notransition: !clickInProgress }"></span>' +
                       '</span>',
             controller: function() {},
             link: function($scope, $element, $attrs) {
@@ -92,7 +92,7 @@
                     $element.addClass('progress-button-perspective');
                 }
                 $scope.progressStyles = {};
-                $scope.allowProgressTransition = false;
+                $scope.clickInProgress = false;
                 // TODO: fetch from attributes probably
 
                 $element.addClass('progress-button');
@@ -101,8 +101,9 @@
 
                 $element.on('click', function() {
                     $scope.$apply(function() {
-                        $scope.allowProgressTransition = true;
-                        $element.addClass('state-loading').attr('disabled', 'disabled');
+                        if( $scope.clickInProgress ) return;
+                        $scope.clickInProgress = true;
+                        $element.addClass('state-loading');
                         var interval = null;
                         $q.when($scope.progressButton()).then(
                             function success() {
@@ -144,10 +145,6 @@
                     $scope.progressStyles[progressProperty] = 100 * val + '%';
                 }
 
-                function enable() {
-                    $element.removeAttr('disabled');
-                }
-
                 function runProgressInterval() {
                     var progress = 0;
                     return $interval(function() {
@@ -163,7 +160,7 @@
                         if (ev.propertyName !== 'opacity' && (! ev.originalEvent || ev.originalEvent.propertyName !== 'opacity') ) return;
                         $element.off(transitionEndEventName, onOpacityTransitionEnd);
                         $scope.$apply(function() {
-                            $scope.allowProgressTransition = false;
+                            $scope.clickInProgress = false;
                             setProgress(0);
                             $scope.progressStyles.opacity = 1;
                         });
@@ -179,11 +176,7 @@
                         $element.addClass(statusClass);
                         setTimeout(function() {
                             $element.removeClass(statusClass);
-                            enable();
                         }, 1500); // TODO: fetch it from the options
-                    }
-                    else {
-                        enable();
                     }
                     $element.removeClass('state-loading');
                 }
