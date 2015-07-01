@@ -92,6 +92,7 @@
                     $element.addClass('progress-button-perspective');
                 }
                 $scope.progressStyles = {};
+                $scope.disabled = false;
                 $scope.allowProgressTransition = false;
                 // TODO: fetch from attributes probably
 
@@ -99,10 +100,15 @@
                 $element.addClass('progress-button-dir-' + $scope.pbDirection);
                 $element.addClass('progress-button-style-' + $scope.pbStyle);
 
+                $scope.$watch('disabled', function(newValue) {
+                    $element.toggleClass('disabled', newValue);
+                });
+
                 $element.on('click', function() {
                     $scope.$apply(function() {
+                        if ($scope.disabled) return;
+                        $scope.disabled = true;
                         $scope.allowProgressTransition = true;
-                        $element.addClass('state-loading').attr('disabled', 'disabled');
                         var interval = null;
                         $q.when($scope.progressButton()).then(
                             function success() {
@@ -144,16 +150,18 @@
                     $scope.progressStyles[progressProperty] = 100 * val + '%';
                 }
 
-                function enable() {
-                    $element.removeAttr('disabled');
-                }
-
                 function runProgressInterval() {
                     var progress = 0;
                     return $interval(function() {
                         progress += (1 - progress) * Math.random() * 0.5;
                         setProgress(progress);
                     }, 200);
+                }
+
+                function enable() {
+                    $scope.$apply(function() {
+                        $scope.disabled = false;
+                    });
                 }
 
                 function doStop(status) {

@@ -22,7 +22,7 @@
   .progress-button .notransition {
     -webkit-transition: none !important;
     transition: none !important; }
-  .progress-button[disabled] {
+  .progress-button[disabled], .progress-button.disabled {
     cursor: default; }
   .progress-button .content {
     position: relative;
