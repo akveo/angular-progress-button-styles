@@ -108,6 +108,7 @@
                     $scope.$apply(function() {
                         if ($scope.disabled) return;
                         $scope.disabled = true;
+                        $element.addClass('state-loading');
                         $scope.allowProgressTransition = true;
                         var interval = null;
                         $q.when($scope.progressButton()).then(
