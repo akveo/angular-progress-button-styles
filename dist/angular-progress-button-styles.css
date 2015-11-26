@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* Checkmark for success */
 /* Checkmark for error */
 /* General styles for all types of buttons */
@@ -36,9 +37,9 @@
       -webkit-transition: opacity 0.3s 0.3s;
       transition: opacity 0.3s 0.3s; }
     .progress-button .content:before {
-      content: "\f00c"; }
+      content: ""; }
     .progress-button .content:after {
-      content: "\f05e"; }
+      content: ""; }
   .progress-button.state-success .content:before, .progress-button.state-error .content:after {
     opacity: 1; }
   .progress-button .progress {
@@ -67,7 +68,7 @@
     -webkit-perspective: 900px;
     perspective: 900px; }
     .progress-button-perspective .content, .progress-button-perspective .progress {
-      outline: 1px solid rgba(0, 0, 0, 0);
+      outline: 1px solid transparent;
       /* Smoothen jagged edges in FF */ }
     .progress-button-perspective .progress-wrap {
       display: block;
@@ -385,3 +386,5 @@
   right: auto;
   left: 100%;
   margin-left: 25px; }
+
+/*# sourceMappingURL=angular-progress-button-styles.css.map */
