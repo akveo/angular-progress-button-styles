@@ -111,8 +111,6 @@
 
                 $scope.$watch('pbValue', valueChangedExternally);
 
-                console.log('$scope.pbValue', $scope.pbValue);
-
                 function valueChangedExternally (newValue, oldValue) {
                     if ($scope.allowProgressTransition)
                         setProgress(newValue);
