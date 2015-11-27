@@ -114,7 +114,7 @@
                 function valueChangedExternally (newValue, oldValue) {
                     if ($scope.allowProgressTransition)
                         setProgress(newValue);
-                    else if (newValue > 0)
+                    else if (newValue > 0 && newValue != 1)
                         _start(newValue);
                 }
                 function _start(startingValue) {
