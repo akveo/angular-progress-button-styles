@@ -71,7 +71,7 @@ progressButtonConfigProvider.profile({
 
 License
 -------------
-<a href="http://opensource.org/licenses/MIT" target="_blank">MIT</a> license.
+<a href="/LICENSE.txt" target="_blank">MIT</a> license.
 
 Contribution
 -------------
