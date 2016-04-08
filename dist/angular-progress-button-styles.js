@@ -73,7 +73,8 @@
                 'progressButton': '&',
                 'pbStyle': '@',
                 'pbDirection': '@',
-                'pbProfile': '@'
+                'pbProfile': '@',
+                'pbValue': '@'
             },
             template: '<span class="content" ng-transclude></span>' + 
                       '<span class="progress">' +
@@ -105,31 +106,46 @@
                 });
 
                 $element.on('click', function() {
-                    $scope.$apply(function() {
-                        if ($scope.disabled) return;
-                        $scope.disabled = true;
-                        $element.addClass('state-loading');
-                        $scope.allowProgressTransition = true;
-                        var interval = null;
-                        $q.when($scope.progressButton()).then(
-                            function success() {
-                                setProgress(1);
-                                interval && $interval.cancel(interval);
-                                doStop(1);
-                            },
-                            function error() {
-                                interval && $interval.cancel(interval);
-                                doStop(-1);
-                            },
-                            function notify(arg) {
-                                !$scope.pbRandomProgress && setProgress(arg);
-                            }
-                        );
-                        if ($scope.pbRandomProgress) {
-                            interval = runProgressInterval();
-                        }
-                    });
+                    $scope.$apply(_start);
                 });
+
+                $scope.$watch('pbValue', valueChangedExternally);
+
+                function valueChangedExternally (newValue, oldValue) {
+                    if ($scope.allowProgressTransition)
+                        setProgress(newValue);
+                    else if (newValue > 0 && newValue != 1)
+                        _start(newValue);
+                }
+                function _start(startingValue) {
+                    if ($scope.disabled) return;
+                    $scope.disabled = true;
+                    $element.addClass('state-loading');
+                    $scope.allowProgressTransition = true;
+                    var interval = null;
+
+                    if (startingValue) {
+                        setProgress(startingValue);
+                    }
+
+                    $q.when($scope.progressButton()).then(
+                        function success() {
+                            setProgress(1);
+                            interval && $interval.cancel(interval);
+                            doStop(1);
+                        },
+                        function error() {
+                            interval && $interval.cancel(interval);
+                            doStop(-1);
+                        },
+                        function notify(arg) {
+                            !$scope.pbRandomProgress && setProgress(arg);
+                        }
+                    );
+                    if ($scope.pbRandomProgress) {
+                        interval = runProgressInterval();
+                    }
+                }
 
                 function _configure() {
                     var profile = progressButtonConfig.getProfile($scope.pbProfile);
