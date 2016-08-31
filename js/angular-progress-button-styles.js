@@ -64,8 +64,8 @@
 
     mdl.directive('progressButton', ProgressButton);
 
-    ProgressButton.$inject = ['$q', 'progressButtonConfig', '$interval'];
-    function ProgressButton($q, progressButtonConfig, $interval) {
+    ProgressButton.$inject = ['$q', 'progressButtonConfig', '$interval', '$timeout'];
+    function ProgressButton($q, progressButtonConfig, $interval, $timeout) {
         return {
             restrict: 'A',
             transclude: true,
@@ -107,7 +107,7 @@
                 });
 
                 $element.on(startProgressEvent, function() {
-                    $scope.$apply(function() {
+                    $timeout(function() {
                         if ($scope.disabled) return;
                         $scope.disabled = true;
                         $element.addClass('state-loading');
@@ -130,7 +130,7 @@
                         if ($scope.pbRandomProgress) {
                             interval = runProgressInterval();
                         }
-                    });
+                    },0);
                 });
 
                 function _configure() {
