@@ -73,7 +73,8 @@
                 'progressButton': '&',
                 'pbStyle': '@',
                 'pbDirection': '@',
-                'pbProfile': '@'
+                'pbProfile': '@',
+                'customEvent': '@'
             },
             template: '<span class="content" ng-transclude></span>' + 
                       '<span class="progress">' +
@@ -84,6 +85,7 @@
                 _configure();
                 var transitionEndEventName = whichTransitionEnd($element[0]);
                 var progressProperty = $scope.pbDirection == 'vertical' ? 'height' : 'width';
+                var startProgressEvent = angular.isUndefined($scope.customEvent) ? 'click' : $scope.customEvent;
 
                 if ($scope.pbPerspective) {
                     var wrap = angular.element('<span class="progress-wrap"></span>');
@@ -104,7 +106,7 @@
                     $element.toggleClass('disabled', newValue);
                 });
 
-                $element.on('click', function() {
+                $element.on(startProgressEvent, function() {
                     $scope.$apply(function() {
                         if ($scope.disabled) return;
                         $scope.disabled = true;
