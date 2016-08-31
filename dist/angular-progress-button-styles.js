@@ -77,7 +77,7 @@
             },
             template: '<span class="content" ng-transclude></span>' + 
                       '<span class="progress">' +
-                          '<span class="progress-inner" ng-style="progressStyles" ng-class="{ notransition: !clickInProgress }"></span>' +
+                          '<span class="progress-inner" ng-style="progressStyles" ng-class="{ notransition: !allowProgressTransition }"></span>' +
                       '</span>',
             controller: function() {},
             link: function($scope, $element, $attrs) {
@@ -92,18 +92,24 @@
                     $element.addClass('progress-button-perspective');
                 }
                 $scope.progressStyles = {};
-                $scope.clickInProgress = false;
+                $scope.disabled = false;
+                $scope.allowProgressTransition = false;
                 // TODO: fetch from attributes probably
 
                 $element.addClass('progress-button');
                 $element.addClass('progress-button-dir-' + $scope.pbDirection);
                 $element.addClass('progress-button-style-' + $scope.pbStyle);
 
+                $scope.$watch('disabled', function(newValue) {
+                    $element.toggleClass('disabled', newValue);
+                });
+
                 $element.on('click', function() {
                     $scope.$apply(function() {
-                        if( $scope.clickInProgress ) return;
-                        $scope.clickInProgress = true;
+                        if ($scope.disabled) return;
+                        $scope.disabled = true;
                         $element.addClass('state-loading');
+                        $scope.allowProgressTransition = true;
                         var interval = null;
                         $q.when($scope.progressButton()).then(
                             function success() {
@@ -153,6 +159,12 @@
                     }, 200);
                 }
 
+                function enable() {
+                    $scope.$apply(function() {
+                        $scope.disabled = false;
+                    });
+                }
+
                 function doStop(status) {
 
                     function onOpacityTransitionEnd(ev) {
@@ -160,7 +172,7 @@
                         if (ev.propertyName !== 'opacity' && (! ev.originalEvent || ev.originalEvent.propertyName !== 'opacity') ) return;
                         $element.off(transitionEndEventName, onOpacityTransitionEnd);
                         $scope.$apply(function() {
-                            $scope.clickInProgress = false;
+                            $scope.allowProgressTransition = false;
                             setProgress(0);
                             $scope.progressStyles.opacity = 1;
                         });
@@ -176,7 +188,11 @@
                         $element.addClass(statusClass);
                         setTimeout(function() {
                             $element.removeClass(statusClass);
+                            enable();
                         }, 1500); // TODO: fetch it from the options
+                    }
+                    else {
+                        enable();
                     }
                     $element.removeClass('state-loading');
                 }
