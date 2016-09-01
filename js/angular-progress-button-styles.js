@@ -64,8 +64,8 @@
 
     mdl.directive('progressButton', ProgressButton);
 
-    ProgressButton.$inject = ['$q', 'progressButtonConfig', '$interval'];
-    function ProgressButton($q, progressButtonConfig, $interval) {
+    ProgressButton.$inject = ['$q', 'progressButtonConfig', '$interval', '$timeout'];
+    function ProgressButton($q, progressButtonConfig, $interval, $timeout) {
         return {
             restrict: 'A',
             transclude: true,
@@ -73,7 +73,8 @@
                 'progressButton': '&',
                 'pbStyle': '@',
                 'pbDirection': '@',
-                'pbProfile': '@'
+                'pbProfile': '@',
+                'customEvent': '@'
             },
             template: '<span class="content" ng-transclude></span>' + 
                       '<span class="progress">' +
@@ -84,6 +85,7 @@
                 _configure();
                 var transitionEndEventName = whichTransitionEnd($element[0]);
                 var progressProperty = $scope.pbDirection == 'vertical' ? 'height' : 'width';
+                var startProgressEvent = angular.isUndefined($scope.customEvent) ? 'click' : $scope.customEvent;
 
                 if ($scope.pbPerspective) {
                     var wrap = angular.element('<span class="progress-wrap"></span>');
@@ -104,8 +106,8 @@
                     $element.toggleClass('disabled', newValue);
                 });
 
-                $element.on('click', function() {
-                    $scope.$apply(function() {
+                $element.on(startProgressEvent, function() {
+                    $timeout(function() {
                         if ($scope.disabled) return;
                         $scope.disabled = true;
                         $element.addClass('state-loading');
@@ -128,7 +130,7 @@
                         if ($scope.pbRandomProgress) {
                             interval = runProgressInterval();
                         }
-                    });
+                    },0);
                 });
 
                 function _configure() {
