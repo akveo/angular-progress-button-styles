@@ -2,7 +2,7 @@
   "name": "angular-progress-button-styles",
   "version": "0.1.0",
   "description": "Different types of progressbuttons implemented on AngularJS",
-  "main": "index.js",
+  "main": "./dist/angular-progress-button-styles.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
